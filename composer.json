@@ -1,0 +1,31 @@
+{
+    "name": "bbc2050/rge-php",
+    "description": "Service de consultation des entreprises et domaines RGE",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Adrien Rosi",
+            "email": "adrienrosi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BBC2050\\Rge\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BBC2050\\Rge\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "doctrine/annotations": "^1.13",
+        "symfony/http-client": "^5.4",
+        "symfony/mime": "^5.4",
+        "symfony/validator": "^5.4"
+    }
+}
