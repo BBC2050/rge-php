@@ -36,9 +36,9 @@ class Entreprise
         $entreprise->adresse = $adresse;
         $entreprise->codePostal = $codePostal;
         $entreprise->commune = $commune;
-        $entreprise->latitude = (float) $latitude;
-        $entreprise->longitude = (float) $longitude;
-        $entreprise->distance = (float) $distance;
+        $entreprise->latitude = (float) \str_replace(',', '.', $latitude);
+        $entreprise->longitude = (float) \str_replace(',', '.', $longitude);
+        $entreprise->distance = (float) \str_replace(',', '.', $distance);
         $entreprise->telephone = \str_replace([' ', '.', '-'], '', $telephone);
         $entreprise->email = $email;
 

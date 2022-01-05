@@ -9,27 +9,34 @@ use BBC2050\Rge\Exception\ServiceUnavailableException;
 
 class Faire
 {
-    public const BASE_URL = 'https://www.faire.gouv.fr/api/rge';
+    public const BASE_URL = 'https://france-renov.gouv.fr/fr/api/rge';
 
     /**
-     * @param string
+     * @param string Identifiant SIRET de l'entreprise
+     * @param \DateTimeInterface Date de vérification
      * 
      * @return array
      * 
      * @throws ServiceUnavailableException
      * @throws BadRequestException
      */
-    public static function company(string $siret): array
+    public static function company(string $siret, \DateTimeInterface $date): array
     {
         $client = HttpClient::create();
 
         /** @var ResponseInterface */
         $response = $client->request('POST', self::BASE_URL . '/company', [
-            'json' => ['siret' => $siret ]
+            'json' => [
+                'siret' => $siret,
+                'date' => $date->format('d/m/Y')
+            ]
         ]);
 
+        if ($response->getStatusCode() === 503) {
+            throw new ServiceUnavailableException('Service indisponible');
+        }
         if ($response->getStatusCode() !== 200) {
-            throw new ServiceUnavailableException($response->getContent());
+            throw new BadRequestException($response->getContent());
         }
         return $response->toArray()['Company'] ?? [];
     }
@@ -57,8 +64,11 @@ class Faire
             ]
         ]);
 
+        if ($response->getStatusCode() === 503) {
+            throw new ServiceUnavailableException('Service indisponible');
+        }
         if ($response->getStatusCode() !== 200) {
-            throw new ServiceUnavailableException($response->getContent());
+            throw new BadRequestException($response->getContent());
         }
         return $response->toArray()['Companies'] ?? [];
     }

@@ -23,9 +23,9 @@ class Entreprise implements EntrepriseInterface
     /**
      * @inheritdoc
      */
-    public static function findOne(string $siret): null|Model
+    public static function findOne(string $siret, \DateTimeInterface $date): null|Model
     {
-        $response = Faire::company($siret);
+        $response = Faire::company($siret, $date);
         $response = \end($response);
 
         if (empty($response)) {

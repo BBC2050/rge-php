@@ -21,8 +21,9 @@ interface EntrepriseInterface
      * Retourne l'entreprise RGE correspondant au SIRET renseigné
      * 
      * @param string SIRET de l'entreprise
+     * @param \DateTimeInterface Date de vérification
      * 
      * @return null|Entreprise
      */
-    public static function findOne(string $siret): null|Entreprise;
+    public static function findOne(string $siret, \DateTimeInterface $date): null|Entreprise;
 }
